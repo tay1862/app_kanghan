@@ -1,0 +1,22 @@
+{
+  "name": "Kanghan Valley Management",
+  "short_name": "Kanghan",
+  "description": "ລະບົບຈັດການ ກັງຫັນ ວາເລ ຣີສອດ ແອນ ແຄັມປິງ",
+  "start_url": "/app/dashboard",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#5B7C4F",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kanghan Valley Resort & Camping - Internal Management System
 
-## Getting Started
+Internal management system for Kanghan Valley Resort & Camping.
+All UI in Lao language, currency LAK.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **Database:** MySQL + Prisma ORM 6
+- **Auth:** NextAuth v5 (credentials, JWT)
+- **Styling:** Tailwind CSS v4
+- **Icons:** Lucide React
+- **Music:** yt-dlp (YouTube audio extraction)
+
+## Modules
+
+1. **Room Booking** - CRUD room types/rooms, booking form, calendar view, double-booking prevention, invoice (A4 print/image export)
+2. **Food/Banquet Billing** - Flexible item entry, banquet tables, same invoice format
+3. **Music Player** - YouTube search via yt-dlp, queue management, playback controls
+4. **Digital Menu** - Admin image upload, public flipbook at `menu.kanghan.site`
+
+## Setup
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env with your MySQL credentials
+
+# 3. Push database schema
+npm run db:push
+
+# 4. Seed initial data
+npm run db:seed
+
+# 5. Start dev server (port 3009)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Default Credentials
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Admin:** admin / admin123
+- **Staff:** staff / staff123
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server on port 3009 |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run db:generate` | Generate Prisma client |
+| `npm run db:push` | Push schema to database |
+| `npm run db:seed` | Seed initial data |
+| `npm run db:studio` | Open Prisma Studio |
 
-To learn more about Next.js, take a look at the following resources:
+## Subdomain Routing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app.kanghan.site` - Modules 1-3 (auth required)
+- `menu.kanghan.site` - Module 4 (public digital menu)
+- `localhost:3009` - Development (redirects to `/app/dashboard`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    api/          # API routes (bookings, rooms, food-orders, settings, music, menu-pages)
+    app/          # Authenticated pages (dashboard, bookings, rooms, food-orders, music, menu-admin, settings)
+    menu/         # Public digital menu
+  components/
+    ui/           # Reusable UI (Button, Input, Modal, Toast)
+    layout/       # Sidebar
+    invoice/      # Invoice template + actions
+  lib/            # Prisma client, auth, utils, constants, validators
+  types/          # TypeScript type definitions
+prisma/
+  schema.prisma   # Database schema
+  seed.ts         # Database seeder
+```
