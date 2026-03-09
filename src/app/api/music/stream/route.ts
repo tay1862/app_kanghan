@@ -22,9 +22,10 @@ export async function GET(request: NextRequest) {
 
     const { stdout } = await execFileAsync(ytdlpPath, [
       `https://www.youtube.com/watch?v=${videoId}`,
-      "-f", "bestaudio",
+      "-f", "bestaudio/best",
       "-g",
       "--no-warnings",
+      "--no-check-certificates",
     ], { timeout: 30000 });
 
     const streamUrl = stdout.trim().split("\n")[0];
